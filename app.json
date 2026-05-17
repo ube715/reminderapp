@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "Reminder Assessment",
+    "slug": "reminder-assessment",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "reminderassessment",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.assessment.reminder"
+    },
+    "android": {
+      "package": "com.assessment.reminder"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "color": "#1D4ED8",
+          "defaultChannel": "reminders"
+        }
+      ],
+      "expo-asset"
+    ]
+  }
+}

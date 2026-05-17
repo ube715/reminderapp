@@ -1,0 +1,9 @@
+node_modules
+.expo
+dist
+desktop-release
+backend/venv
+.DS_Store
+*.log
+android
+ios
