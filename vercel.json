@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/handler.js"
+      "destination": "/api/index.py"
     },
     {
       "source": "/(.*)",

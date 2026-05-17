@@ -360,6 +360,6 @@ def mark_reminder_done(reminder_id):
         "reminded_at": reminded_at
     }), 200
 
-# Vercel serverless handler
-def handler(request):
-    return app(environ={**request.environ, 'wsgi.input': request.stream}, start_response)
+# WSGI-compatible handler for serverless platforms (and local testing)
+def handler(environ, start_response):
+    return app.wsgi_app(environ, start_response)
