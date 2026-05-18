@@ -439,5 +439,14 @@ def delete_reminder(reminder_id):
 
 if __name__ == "__main__":
     init_db()
-    print("\n  🔔 Reminder API running at http://localhost:5000\n")
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port_value = os.getenv("PORT", "5000")
+    try:
+        port = int(port_value)
+    except ValueError:
+        port = 5000
+
+    debug_value = os.getenv("FLASK_DEBUG", "").strip().lower()
+    debug = debug_value in {"1", "true", "yes", "on"}
+
+    print(f"\n  🔔 Reminder API running at http://localhost:{port}\n")
+    app.run(host="0.0.0.0", port=port, debug=debug)
