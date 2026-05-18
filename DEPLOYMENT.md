@@ -1,25 +1,25 @@
-# Vercel Deployment Guide
+# Deployment Guide (Vercel Frontend + Render Backend)
 
-## Quick Deploy
+This app is deployed with a static web frontend on **Vercel** and the Flask API on **Render**.
 
-### 1. Install Vercel CLI
-```bash
-npm install -g vercel
-```
+## Render: Flask API
 
-### 2. Login to Vercel
-```bash
-vercel login
-```
+1. **Create a new Web Service** in Render.
+2. **Repository**: select this repo.
+3. **Root Directory**: `/backend`.
+4. **Build Command**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+5. **Start Command**:
+   ```bash
+   python app.py
+   ```
+6. **Health Check Path**: `/api/health`.
 
-### 3. Deploy
-```bash
-vercel --prod
-```
+### Environment Variables (Render)
 
-## Environment Variables
-
-Set these in Vercel Dashboard (Settings → Environment Variables):
+Set these if you plan to use SMS reminders:
 
 ```
 TWILIO_ACCOUNT_SID=your_twilio_account_sid
@@ -27,32 +27,27 @@ TWILIO_AUTH_TOKEN=your_twilio_auth_token
 TWILIO_MESSAGING_SERVICE_SID=your_twilio_messaging_service_sid
 ```
 
-## Testing After Deployment
+### Persistence
 
-1. Open your Vercel URL
-2. Log in with: **demo@example.com / demo123**
-3. Water reminders will send SMS via Twilio
+SQLite is stored alongside `app.py` at `backend/reminders.db`. For persistence on Render, either:
+- attach a **persistent disk** and move the DB location to that mount, or
+- migrate to a managed database (Postgres, MongoDB, etc.).
 
-## API Endpoints
+## Vercel: Static Web Frontend
 
-All API routes are available at:
-- `https://your-vercel-domain.vercel.app/api/...`
+1. **Create a new Vercel project** from this repo.
+2. **Build Command**:
+   ```bash
+   npm run web:export
+   ```
+3. **Output Directory**: `dist`
+4. **Environment Variables**:
+   ```
+   EXPO_PUBLIC_API_BASE_URL=https://<your-render-service>.onrender.com
+   ```
 
-Examples:
-- `POST /api/auth/login` - Login
-- `POST /api/reminders` - Create reminder
-- `GET /api/reminders` - List reminders
-- `POST /api/wellness/water-reminder` - Send water reminder SMS
+## Verify Deployment
 
-## Frontend
-
-The React Native web app is exported to `/dist` and served as static files.
-
-## Database
-
-Uses SQLite at `/tmp/reminders.db` (ephemeral storage, data resets between deployments).
-
-For persistent storage, consider upgrading to:
-- Vercel PostgreSQL
-- MongoDB Atlas
-- Firebase Realtime Database
+1. Visit the Render health check: `https://<your-render-service>.onrender.com/api/health`
+2. Open your Vercel URL and log in with `demo@example.com / demo123`
+3. Create, update, and delete reminders to confirm API connectivity.
