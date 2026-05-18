@@ -29,7 +29,7 @@ TWILIO_MESSAGING_SERVICE_SID=your_twilio_messaging_service_sid
 
 ### Persistence
 
-SQLite is stored in `backend/reminders.db`. For persistence on Render, either:
+SQLite is stored alongside `app.py` at `backend/reminders.db`. For persistence on Render, either:
 - attach a **persistent disk** and move the DB location to that mount, or
 - migrate to a managed database (Postgres, MongoDB, etc.).
 

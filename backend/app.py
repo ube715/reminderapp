@@ -443,6 +443,7 @@ if __name__ == "__main__":
     try:
         port = int(port_value)
     except ValueError:
+        print(f"Invalid PORT value '{port_value}', falling back to 5000.")
         port = 5000
 
     debug_value = os.getenv("FLASK_DEBUG", "").strip().lower()
