@@ -7,6 +7,8 @@
 
 import { Platform } from "react-native";
 
+const RENDER_BASE_URL = "https://reminderapp-1-fxq8.onrender.com";
+
 /**
  * Determine the correct base URL depending on the platform:
  *  - Web / Desktop  → localhost
@@ -23,7 +25,9 @@ const getDefaultBaseUrl = () => {
   return "http://localhost:5000";
 };
 
-const BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL || getDefaultBaseUrl();
+const BASE_URL =
+  process.env.EXPO_PUBLIC_API_BASE_URL ||
+  (__DEV__ ? getDefaultBaseUrl() : RENDER_BASE_URL);
 
 // ---------------------------------------------------------------------------
 // Generic fetch wrapper
